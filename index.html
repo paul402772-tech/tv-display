@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Trisco Foods - Ideation Day</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    
+    <!-- Icons (Lucide) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'metarom-green': '#8bc53f', 
+                        'metarom-dark': '#2e5d28',
+                        'trisco-red': '#9e1b32',
+                        'trisco-gold': '#d4af37',
+                        'caramel-light': '#e6c8a0', 
+                        'caramel-dark': '#c79c65',
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            overflow: hidden;
+            background-color: #f0f2f5;
+        }
+        
+        /* WARMER Animated Gradient Background */
+        .caramel-warm-bg {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #fff8f0, #f3e5d8, #e8dcc6, #fff0e6);
+            background-size: 400% 400%;
+            animation: gradientMove 12s ease infinite;
+            z-index: 0;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* LOGO FLOAT ANIMATION */
+        @keyframes float-y {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        .animate-float-y {
+            animation: float-y 7s ease-in-out infinite;
+        }
+
+        /* PRODUCT SHADOW ANIMATION 
+           Gentle rise with slight sway, less tumbling so shapes are recognizable
+        */
+        @keyframes productRise {
+            0% { 
+                transform: translateY(20vh) rotate(-10deg) scale(0.8);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.15; /* Low opacity for shadow look */
+            }
+            50% {
+                transform: translateY(-50vh) rotate(10deg) scale(1);
+            }
+            80% {
+                opacity: 0.15;
+            }
+            100% { 
+                transform: translateY(-120vh) rotate(-10deg) scale(0.8);
+                opacity: 0;
+            }
+        }
+
+        .product-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1; 
+            pointer-events: none;
+        }
+
+        .product-shadow {
+            position: absolute;
+            bottom: -100px;
+            color: #9e1b32; /* Default base color (Trisco Red), varied below */
+            opacity: 0;
+            animation-name: productRise;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
+            filter: blur(1px); /* Soften edges for shadow effect */
+        }
+
+        /* Product Variations (Position, Size, Icon Color, Speed) */
+        
+        /* 1. Large Wheat (Bakery) */
+        .product-shadow:nth-child(1) { left: 10%; animation-duration: 25s; animation-delay: 0s; color: #d4af37; transform-origin: center; }
+        .product-shadow:nth-child(1) svg { width: 120px; height: 120px; }
+
+        /* 2. Bottle (Syrup) */
+        .product-shadow:nth-child(2) { left: 25%; animation-duration: 18s; animation-delay: 5s; color: #9e1b32; }
+        .product-shadow:nth-child(2) svg { width: 80px; height: 80px; }
+
+        /* 3. Droplets (Liquids) */
+        .product-shadow:nth-child(3) { left: 40%; animation-duration: 22s; animation-delay: 2s; color: #8bc53f; }
+        .product-shadow:nth-child(3) svg { width: 60px; height: 60px; }
+
+        /* 4. Cherry (Fruit Fillings) */
+        .product-shadow:nth-child(4) { left: 60%; animation-duration: 20s; animation-delay: 8s; color: #9e1b32; }
+        .product-shadow:nth-child(4) svg { width: 90px; height: 90px; }
+
+        /* 5. Cup/Soda (Beverage) */
+        .product-shadow:nth-child(5) { left: 80%; animation-duration: 28s; animation-delay: 1s; color: #c79c65; }
+        .product-shadow:nth-child(5) svg { width: 100px; height: 100px; }
+
+        /* 6. Cookie (Bakery) */
+        .product-shadow:nth-child(6) { left: 15%; animation-duration: 24s; animation-delay: 12s; color: #d4af37; }
+        .product-shadow:nth-child(6) svg { width: 50px; height: 50px; }
+
+        /* 7. Milk (Dairy) */
+        .product-shadow:nth-child(7) { left: 90%; animation-duration: 19s; animation-delay: 6s; color: #2e5d28; }
+        .product-shadow:nth-child(7) svg { width: 70px; height: 70px; }
+
+        /* 8. Wheat Small */
+        .product-shadow:nth-child(8) { left: 50%; animation-duration: 30s; animation-delay: 15s; color: #d4af37; opacity: 0.1; }
+        .product-shadow:nth-child(8) svg { width: 40px; height: 40px; }
+
+        /* 9. Bottle Small */
+        .product-shadow:nth-child(9) { left: 70%; animation-duration: 21s; animation-delay: 3s; color: #9e1b32; }
+        .product-shadow:nth-child(9) svg { width: 45px; height: 45px; }
+
+        /* 10. Ice Cream (Toppings) */
+        .product-shadow:nth-child(10) { left: 30%; animation-duration: 26s; animation-delay: 10s; color: #c79c65; }
+        .product-shadow:nth-child(10) svg { width: 85px; height: 85px; }
+
+
+        /* FIXED ENTRANCE ANIMATIONS */
+        @keyframes customFadeInUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-enter {
+            opacity: 0; /* Start hidden */
+            animation: customFadeInUp 0.8s ease-out forwards;
+        }
+
+        /* Glass Cards */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+        }
+
+        /* DARK Glass for Logos */
+        .glass-logo-dark {
+            background: rgba(20, 30, 35, 0.85); 
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.3);
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 5rem; 
+            top: 2rem;
+            bottom: 2rem;
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, #8bc53f, #9e1b32, transparent);
+            z-index: 0;
+        }
+
+        /* Hide Scrollbar */
+        ::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="h-screen w-screen text-gray-800 flex items-center justify-center p-4 lg:p-8 relative selection:bg-metarom-green selection:text-white">
+
+    <!-- Warmer Background -->
+    <div class="caramel-warm-bg"></div>
+    
+    <!-- Dynamic PRODUCT SHADOW Animation -->
+    <div class="product-container">
+        <!-- 1. Wheat -->
+        <div class="product-shadow"><i data-lucide="wheat"></i></div>
+        <!-- 2. Bottle -->
+        <div class="product-shadow"><i data-lucide="flask-round"></i></div> 
+        <!-- 3. Droplets -->
+        <div class="product-shadow"><i data-lucide="droplets"></i></div>
+        <!-- 4. Cherry -->
+        <div class="product-shadow"><i data-lucide="cherry"></i></div>
+        <!-- 5. Cup -->
+        <div class="product-shadow"><i data-lucide="cup-soda"></i></div>
+        <!-- 6. Cookie -->
+        <div class="product-shadow"><i data-lucide="cookie"></i></div>
+        <!-- 7. Milk -->
+        <div class="product-shadow"><i data-lucide="milk"></i></div>
+        <!-- 8. Wheat Small -->
+        <div class="product-shadow"><i data-lucide="wheat"></i></div>
+        <!-- 9. Bottle Small -->
+        <div class="product-shadow"><i data-lucide="flask-conical"></i></div>
+        <!-- 10. Ice Cream -->
+        <div class="product-shadow"><i data-lucide="ice-cream-2"></i></div>
+    </div>
+
+    <!-- Main Content Grid -->
+    <main class="w-full h-full max-w-[1900px] grid grid-cols-12 gap-6 relative z-10">
+        
+        <!-- Left Column: Branding -->
+        <div class="col-span-12 lg:col-span-5 flex flex-col justify-center items-center lg:items-start text-center lg:text-left pl-6 lg:pl-12">
+            
+            <!-- Logo Container (Now using .animate-float-y) -->
+            <div class="glass-logo-dark py-8 pl-0 pr-48 rounded-[2.5rem] flex items-center justify-start w-fit animate-float-y relative z-20 -ml-8 lg:-ml-12">
+                <img src="https://metarom.com.au/wp-content/uploads/2024/01/cropped-logo-wordpress-20.png" alt="Metarom Logo" class="h-32 w-auto object-contain z-10 -ml-16 -mt-8">
+                <div class="z-15 -ml-32 text-white/90 drop-shadow-md">
+                    <i data-lucide="handshake" class="w-14 h-14 text-caramel-light"></i>
+                </div>
+                <img src="https://triscofoods.com.au/wp-content/uploads/2019/10/trisco-logo.png" alt="Trisco Foods Logo" class="h-28 w-auto object-contain ml-4 z-20">
+            </div>
+
+            <!-- Welcome Text -->
+            <div class="space-y-6 mt-16 animate-enter" style="animation-delay: 0.2s;">
+                <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-white/40 border border-white/50 text-metarom-dark font-bold text-xs tracking-widest uppercase shadow-sm">
+                    <span class="w-2 h-2 rounded-full bg-metarom-green animate-pulse"></span>
+                    <span>Partners in Innovation</span>
+                </div>
+                
+                <h1 class="text-6xl xl:text-7xl font-serif text-gray-900 leading-[1.05]">
+                    Welcome <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-br from-trisco-red to-red-800 italic font-bold">Trisco Foods.</span>
+                </h1>
+                
+                <p class="text-2xl text-gray-600 font-light max-w-lg leading-relaxed pt-2">
+                    We hope you enjoy our natural flavour World.
+                </p>
+            </div>
+
+            <!-- Date/Tagline Footer -->
+            <div class="mt-12 animate-enter" style="animation-delay: 0.4s;">
+                <div class="flex items-center space-x-3 text-gray-600">
+                    <div class="p-2 bg-white/50 rounded-lg text-trisco-red shadow-sm">
+                        <i data-lucide="calendar-heart" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <span class="block text-sm font-bold uppercase tracking-wide text-gray-400">Date</span>
+                        <span class="text-lg font-semibold">Ideation Day 2026</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column: Agenda (REVERTED TO WIDER LAYOUT) -->
+        <div class="col-span-12 lg:col-span-7 h-full flex flex-col justify-center py-4">
+            
+            <!-- Agenda Card -->
+            <div class="glass-panel w-full h-[95vh] rounded-[2rem] p-6 lg:p-8 relative flex flex-col">
+                
+                <!-- Header -->
+                <div class="flex items-center justify-between mb-4 border-b border-gray-200/50 pb-4">
+                    <h2 class="text-2xl font-serif text-gray-800 flex items-center">
+                        <span class="mr-3 text-trisco-red"><i data-lucide="list-video" class="w-6 h-6"></i></span>
+                        Today's Agenda
+                    </h2>
+                </div>
+
+                <!-- Compact Scroll Area -->
+                <div class="relative h-full flex flex-col pr-1">
+                    <div class="timeline-line hidden lg:block left-[4.5rem]"></div>
+                    <div class="space-y-2.5 h-full flex flex-col justify-center">
+
+                        <!-- Item 1 -->
+                        <div class="flex items-center group animate-enter" style="animation-delay: 0.5s;">
+                            <div class="w-20 text-right font-medium text-gray-400 mr-6 text-lg font-mono group-hover:text-metarom-green">09:00</div>
+                            <div class="bg-white/70 p-2.5 rounded-xl flex-1 flex items-center border-l-[4px] border-metarom-green transition-all hover:bg-white hover:shadow-md hover:scale-[1.01]">
+                                <div class="p-2 bg-green-50 rounded-lg mr-4 text-metarom-dark"><i data-lucide="coffee" class="w-5 h-5"></i></div>
+                                <div><h3 class="font-bold text-base text-gray-800">Arrival & Coffee</h3><p class="text-xs text-gray-500">Introductions</p></div>
+                            </div>
+                        </div>
+
+                        <!-- Item 2 -->
+                        <div class="flex items-center group animate-enter" style="animation-delay: 0.6s;">
+                            <div class="w-20 text-right font-medium text-gray-400 mr-6 text-lg font-mono group-hover:text-metarom-green">09:15</div>
+                            <div class="bg-white/70 p-2.5 rounded-xl flex-1 flex items-center border-l-[4px] border-metarom-green transition-all hover:bg-white hover:shadow-md hover:scale-[1.01]">
+                                <div class="p-2 bg-blue-50 rounded-lg mr-4 text-blue-600"><i data-lucide="flask-conical" class="w-5 h-5"></i></div>
+                                <div><h3 class="font-bold text-base text-gray-800">Lab Visit</h3><p class="text-xs text-gray-500">with Melanie & Alan</p></div>
+                            </div>
+                        </div>
+
+                        <!-- Item 3 -->
+                        <div class="flex items-center group animate-enter" style="animation-delay: 0.7s;">
+                            <div class="w-20 text-right font-medium text-gray-400 mr-6 text-lg font-mono group-hover:text-trisco-red">10:00</div>
+                            <div class="bg-white/70 p-2.5 rounded-xl flex-1 flex items-center border-l-[4px] border-trisco-red transition-all hover:bg-white hover:shadow-md hover:scale-[1.01]">
+                                <div class="p-2 bg-red-50 rounded-lg mr-4 text-trisco-red"><i data-lucide="factory" class="w-5 h-5"></i></div>
+                                <div><h3 class="font-bold text-base text-gray-800">Factory Tour</h3><p class="text-xs text-gray-500">Planning & Production with Grega</p></div>
+                            </div>
+                        </div>
+
+                        <!-- Item 4 -->
+                        <div class="flex items-center group animate-enter" style="animation-delay: 0.8s;">
+                            <div class="w-20 text-right font-medium text-gray-400 mr-6 text-lg font-mono group-hover:text-orange-500">11:00</div>
+                            <div class="bg-white/70 p-2.5 rounded-xl flex-1 flex items-center border-l-[4px] border-orange-400 transition-all hover:bg-white hover:shadow-md hover:scale-[1.01]">
+                                <div class="p-2 bg-orange-50 rounded-lg mr-4 text-orange-600"><i data-lucide="utensils" class="w-5 h-5"></i></div>
+                                <div><h3 class="font-bold text-base text-gray-800">Flavour Tasting Session</h3><p class="text-xs text-gray-500">Asian, Nuts & Native Notes</p></div>
+                            </div>
+                        </div>
+
+                        <!-- Item 5 -->
+                        <div class="flex items-center group animate-enter" style="animation-delay: 0.9s;">
+                            <div class="w-20 text-right font-medium text-gray-400 mr-6 text-lg font-mono group-hover:text-yellow-600">12:00</div>
+                            <div class="bg-yellow-50/80 p-2.5 rounded-xl flex-1 flex items-center border-l-[4px] border-yellow-500 transition-all hover:bg-yellow-50 hover:shadow-md hover:scale-[1.01]">
+                                <div class="p-2 bg-yellow-100 rounded-lg mr-4 text-yellow-700"><i data-lucide="sandwich" class="w-5 h-5"></i></div>
+                                <div><h3 class="font-bold text-base text-gray-800">Lunch</h3><p class="text-xs text-gray-500">@ Croquembouche</p></div>
+                            </div>
+                        </div>
+
+                        <!-- Item 6 -->
+                        <div class="flex items-center group animate-enter" style="animation-delay: 1.0s;">
+                            <div class="w-20 text-right font-medium text-gray-400 mr-6 text-lg font-mono group-hover:text-purple-600">13:00</div>
+                            <div class="bg-white/70 p-2.5 rounded-xl flex-1 flex items-center border-l-[4px] border-purple-500 transition-all hover:bg-white hover:shadow-md hover:scale-[1.01]">
+                                <div class="p-2 bg-purple-50 rounded-lg mr-4 text-purple-600"><i data-lucide="graduation-cap" class="w-5 h-5"></i></div>
+                                <div><h3 class="font-bold text-base text-gray-800">Flavour Class</h3><p class="text-xs text-gray-500">Education Session</p></div>
+                            </div>
+                        </div>
+
+                        <!-- Item 7 -->
+                        <div class="flex items-center group animate-enter" style="animation-delay: 1.1s;">
+                            <div class="w-20 text-right font-medium text-gray-400 mr-6 text-lg font-mono group-hover:text-pink-600">14:00</div>
+                            <div class="bg-white/70 p-2.5 rounded-xl flex-1 flex items-center border-l-[4px] border-pink-500 transition-all hover:bg-white hover:shadow-md hover:scale-[1.01]">
+                                <div class="p-2 bg-pink-50 rounded-lg mr-4 text-pink-600"><i data-lucide="sparkles" class="w-5 h-5"></i></div>
+                                <div><h3 class="font-bold text-base text-gray-800">New Launches</h3><p class="text-xs text-gray-500">Tasting with Melanie & Val</p></div>
+                            </div>
+                        </div>
+
+                         <!-- Item 8 -->
+                         <div class="flex items-center group animate-enter" style="animation-delay: 1.2s;">
+                            <div class="w-20 text-right font-medium text-gray-400 mr-6 text-lg font-mono group-hover:text-indigo-600">15:00</div>
+                            <div class="bg-white/70 p-2.5 rounded-xl flex-1 flex items-center border-l-[4px] border-indigo-500 transition-all hover:bg-white hover:shadow-md hover:scale-[1.01]">
+                                <div class="p-2 bg-indigo-50 rounded-lg mr-4 text-indigo-600"><i data-lucide="pipette" class="w-5 h-5"></i></div>
+                                <div><h3 class="font-bold text-base text-gray-800">Specialty Blends</h3><p class="text-xs text-gray-500">SKN & SKBV Tasting</p></div>
+                            </div>
+                        </div>
+
+                        <!-- Item 9 -->
+                        <div class="flex items-center group animate-enter" style="animation-delay: 1.3s;">
+                            <div class="w-20 text-right font-medium text-gray-300 mr-6 text-lg font-mono">15:30</div>
+                            <div class="bg-gray-100/60 p-2.5 rounded-xl flex-1 flex items-center border-l-[4px] border-gray-400">
+                                <div class="p-2 bg-gray-200 rounded-lg mr-4 text-gray-600"><i data-lucide="check-circle" class="w-5 h-5"></i></div>
+                                <div><h3 class="font-bold text-base text-gray-600">Closure</h3><p class="text-xs text-gray-500">Wrap up</p></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer Decoration -->
+    <div class="absolute bottom-4 right-10 text-xs text-gray-400 font-light opacity-50 z-0">
+        Metarom Australia &copy; 2026
+    </div>
+
+    <!-- Initialize Icons -->
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
